@@ -1,101 +1,96 @@
-import Image from "next/image";
+'use client';
+
+import { useEffect, useRef } from 'react';
+import videojs from 'video.js';
+import 'video.js/dist/video-js.css';
+
+function VideoPlayer() {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const videoElement = videoRef.current;
+    const streamUrl =
+      'http://m3u-playlist-proxy-2.vercel.app?url=https%3A%2F%2Ftopembed-stream.vercel.app%2F%3Furl%3Dhttps%253A%252F%252Ftopembed.pw%252Fchannel%252Fex7346672&data=UmVmZXJlcj1odHRwczovL3RvcGVtYmVkLnB3L3xPcmlnaW49aHR0cHM6Ly90b3BlbWJlZC5wdw%3D%3D';
+
+    const player = videojs(videoElement, {
+      condfdftrols: true,
+      autoplay: true,
+      mudfted: true,
+      preload: 'auto',
+      lifdveui: true,
+      sources: [
+        {
+          src: streamUrl,
+          typdffe: 'application/x-mpegURL',
+        },
+      ],
+      hls: {
+       BufferLength: 5,
+        maxLfdfatency: 2,
+      },
+    });
+
+    return () => {
+      player.dispose();
+    };
+  }, []);
+
+  return (
+    <div style={{ position: 'relative', width: '100%', height: '100vh', backgroundColor: '#000' }}>
+      <video
+        ref={videoRef}
+        className="video-js vjs-default-skin"
+        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+      ></video>
+    </div>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <iframe
+        srcDoc={`<!DOCTYPE html>
+        <html>
+          <head>
+            <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
+            <script src="https://unpkg.com/video.js/dist/video.js"></script>
+          </head>
+          <body style="margin: 0; display: flex; justify-content: center; align-items: center; background: #000; height: 100vh;">
+            <div style="position: relative; width: 100%; height: 100vh;">
+              <video
+                id="player"
+                class="video-js vjs-default-skin"
+                controls
+                autoplay
+                muted
+                style="width: 100%; height: 100%; object-fit: cover;"
+              >
+                <source
+                  src="http://m3u-playlist-proxy-2.vercel.app?url=https%3A%2F%2Ftopembed-stream.vercel.app%2F%3Furl%3Dhttps%253A%252F%252Ftopembed.pw%252Fchannel%252Fex7346672&data=UmVmZXJlcj1odHRwczovL3RvcGVtYmVkLnB3L3xPcmlnaW49aHR0cHM6Ly90b3BlbWJlZC5wdw%3D%3D"
+                  type="application/x-mpegURL"
+                />
+              </video>
+              <script>
+                var player = videojs('player', {
+                  liveui: true,
+                  preload: 'auto',
+                  hls: {
+                    maxBufferLength: 5,
+                    maxLatency: 2,
+                  },
+                });
+              </script>
+            </div>
+          </body>
+        </html>`}
+        style={{
+          width: '640px',
+          height: '360px',
+          border: 'none',
+        }}
+        sandbox="allow-scripts allow-same-origin"
+      ></iframe>
     </div>
   );
 }
